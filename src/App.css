@@ -1,42 +1,76 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: system-ui;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.app {
+  width: 100vw;
+  height: 100vh;
+  background-color: antiquewhite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.spacing-wrapper {
+  width: 95%;
+  border-radius: 4px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.content-box {
+  min-width: 100px;
+  flex: 1;
+  height: 35px;
+  border-radius: 4px;
+  background-color: #fff;
 }
 
-.card {
-  padding: 2em;
+.spacing-box {
+  width: 100%;
+  border-radius: 4px;
+  border: 1px solid #555;
+  position: relative;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
-.read-the-docs {
-  color: #888;
+.spacing-box-title {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  color: #555;
+  font-size: 0.7rem;
+  letter-spacing: 0.6px;
+  font-weight: 600;
+}
+
+.box-row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.top-row,
+.bottom-row {
+  justify-content: center;
+}
+
+.middle-row {
+  justify-content: center;
+  align-items: center;
+}
+
+.input-box {
+  width: 50px;
+  letter-spacing: 0.6px;
+  padding: 2px 4px;
+}
+
+.input-suggestions-wrapper {
+  display: flex;
+  flex-wrap: nowrap;
+  position: relative;
 }
