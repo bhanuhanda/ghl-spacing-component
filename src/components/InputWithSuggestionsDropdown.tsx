@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import type { ChangeEvent, KeyboardEvent } from "react";
 import type { TypeOptions, Positions } from "../types";
 import SuggestionList from "./SuggestionList";
@@ -28,14 +28,21 @@ const InputWithSuggestionsDropdown = ({
     const [inputValue, setInputValue] = useState(value);
     const inputRef = useRef<HTMLInputElement>(null);
 
+    // Sync inputValue with value prop
     useEffect(() => {
         setInputValue(value);
     }, [value]);
 
     const commitChange = () => {
-        if (inputValue !== value) {
-            onChange(inputValue);
+        let sanitizedValue = inputValue;
+        if (!CSS.supports('width', sanitizedValue)) {
+            sanitizedValue = '';
         }
+
+        if (sanitizedValue !== value) {
+            onChange(sanitizedValue);
+        }
+        setInputValue(sanitizedValue);
         if (inputRef.current) {
             inputRef.current.blur();
         }

@@ -34,16 +34,11 @@ const BoxModel = ({ children, onValueChange, customSuggestions = [], defaultValu
     };
 
     const handleInputChange = (type: TypeOptions, position: keyof Positions, newValue: string) => {
-        let sanitizedValue = newValue;
-        if (!CSS.supports('width', newValue)) {
-            sanitizedValue = '';
-        }
-        
         const newState = {
             ...value,
             [type]: {
                 ...value[type],
-                [position]: sanitizedValue
+                [position]: newValue
             }
         };
 
@@ -51,7 +46,7 @@ const BoxModel = ({ children, onValueChange, customSuggestions = [], defaultValu
             ...changedValues,
             [type]: {
                 ...changedValues[type],
-                [position]: sanitizedValue
+                [position]: newValue
             }
         };
 
@@ -85,23 +80,25 @@ const BoxModel = ({ children, onValueChange, customSuggestions = [], defaultValu
             setChangedValues(newChanged);
         } else if (suggestion.applyTo === 'all') {
             const newValue = suggestion.valueFromInput ? positionValue : suggestion.value;
+            const disabledPositions = disabledInputs?.[type] || [];
+            
             const newState = {
                 ...value,
                 [type]: {
-                    top: newValue,
-                    right: newValue,
-                    bottom: newValue,
-                    left: newValue
+                    top: disabledPositions.includes('top') ? value[type].top : newValue,
+                    right: disabledPositions.includes('right') ? value[type].right : newValue,
+                    bottom: disabledPositions.includes('bottom') ? value[type].bottom : newValue,
+                    left: disabledPositions.includes('left') ? value[type].left : newValue
                 }
             };
 
             const newChanged = {
                 ...changedValues,
                 [type]: {
-                    top: newValue,
-                    right: newValue,
-                    bottom: newValue,
-                    left: newValue
+                    top: disabledPositions.includes('top') ? changedValues[type].top : newValue,
+                    right: disabledPositions.includes('right') ? changedValues[type].right : newValue,
+                    bottom: disabledPositions.includes('bottom') ? changedValues[type].bottom : newValue,
+                    left: disabledPositions.includes('left') ? changedValues[type].left : newValue
                 }
             };
 
