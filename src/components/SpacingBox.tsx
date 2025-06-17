@@ -17,7 +17,8 @@ const SpacingBox = ({ title, children, type, styles = {} }: SpacingBoxProps) => 
         handleInputChange,
         handleOpenDialog,
         handleCloseDialog,
-        openDialogConfig
+        openDialogConfig,
+        disabledInputs
     } = useContext(StateContext);
 
     return (
@@ -32,6 +33,7 @@ const SpacingBox = ({ title, children, type, styles = {} }: SpacingBoxProps) => 
                     isOpen={openDialogConfig?.type === type && openDialogConfig?.position === "top"}
                     onOpen={() => handleOpenDialog(type, "top")}
                     onClose={handleCloseDialog}
+                    disabled={disabledInputs?.[type]?.includes('top') || false}
                 />
             </div>
             <div className="box-row middle-row">
@@ -43,6 +45,7 @@ const SpacingBox = ({ title, children, type, styles = {} }: SpacingBoxProps) => 
                     isOpen={openDialogConfig?.type === type && openDialogConfig?.position === "left"}
                     onOpen={() => handleOpenDialog(type, "left")}
                     onClose={handleCloseDialog}
+                    disabled={disabledInputs?.[type]?.includes('left') || false}
                 />
                 {children}
                 <InputWithSuggestionsDropdown
@@ -53,6 +56,7 @@ const SpacingBox = ({ title, children, type, styles = {} }: SpacingBoxProps) => 
                     isOpen={openDialogConfig?.type === type && openDialogConfig?.position === "right"}
                     onOpen={() => handleOpenDialog(type, "right")}
                     onClose={handleCloseDialog}
+                    disabled={disabledInputs?.[type]?.includes('right') || false}
                 />
             </div>
             <div className="box-row bottom-row">
@@ -64,6 +68,7 @@ const SpacingBox = ({ title, children, type, styles = {} }: SpacingBoxProps) => 
                     isOpen={openDialogConfig?.type === type && openDialogConfig?.position === "bottom"}
                     onOpen={() => handleOpenDialog(type, "bottom")}
                     onClose={handleCloseDialog}
+                    disabled={disabledInputs?.[type]?.includes('bottom') || false}
                 />
             </div>
         </div>

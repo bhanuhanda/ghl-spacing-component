@@ -11,6 +11,6 @@
 	- [x] Positioning
 	- [x] Toggling Dialog State
 - [x] Handle Suggestions Selection ('single' & 'all')
-- [ ] Allow passing Default value
-- [ ] Allow passing more suggestions
-- [ ] Allow passing Disabled options
+- [x] Allow passing Default value
+- [x] Allow passing more suggestions
+- [x] Allow passing Disabled options

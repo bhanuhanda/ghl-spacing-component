@@ -1,18 +1,10 @@
 import { useEffect, useState } from "react";
-import type { ReactNode } from "react";
 import { StateContext } from "../context";
 import SpacingBox from "./SpacingBox";
 import { suggestions } from "../helpers/constants";
-import type { BoxModelState, ContextValue, Positions, TypeOptions, ChangedValues, BoxModelChange, Suggestion, HandleSuggestionClickParams } from "../types";
+import type { BoxModelState, ContextValue, Positions, TypeOptions, ChangedValues, HandleSuggestionClickParams, BoxModelProps } from "../types";
 
-interface BoxModelProps {
-    children: ReactNode;
-    onValueChange?: (change: BoxModelChange) => void;
-    customSuggestions?: Suggestion[];
-    defaultValue?: string;
-}
-
-const BoxModel = ({ children, onValueChange, customSuggestions = [], defaultValue = "20px" }: BoxModelProps) => {
+const BoxModel = ({ children, onValueChange, customSuggestions = [], defaultValue = "20px", disabledInputs }: BoxModelProps) => {
     const [value, setValue] = useState<BoxModelState>({
         margin: {
             left: "",
@@ -126,7 +118,8 @@ const BoxModel = ({ children, onValueChange, customSuggestions = [], defaultValu
         handleSuggestionClick,
         handleOpenDialog,
         handleCloseDialog,
-        openDialogConfig
+        openDialogConfig,
+        disabledInputs
     };
 
     useEffect(() => {

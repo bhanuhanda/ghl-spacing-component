@@ -1,4 +1,4 @@
-import type { Dispatch, SetStateAction } from "react";
+import type { Dispatch, SetStateAction, ReactNode } from "react";
 
 export interface Positions {
     left: string;
@@ -37,6 +37,19 @@ export interface HandleSuggestionClickParams {
     position: keyof Positions 
 }
 
+export interface DisabledInputs {
+    margin?: (keyof Positions)[];
+    padding?: (keyof Positions)[];
+}
+
+export interface BoxModelProps {
+    children: ReactNode;
+    onValueChange?: (change: BoxModelChange) => void;
+    customSuggestions?: Suggestion[];
+    defaultValue?: string;
+    disabledInputs?: DisabledInputs;
+}
+
 export interface ContextValue {
     value: BoxModelState;
     setValue: Dispatch<SetStateAction<BoxModelState>>;
@@ -46,4 +59,5 @@ export interface ContextValue {
     handleOpenDialog: (type: TypeOptions, position: string) => void;
     handleCloseDialog: () => void;
     openDialogConfig: { type: TypeOptions; position: string } | null;
+    disabledInputs?: DisabledInputs;
 }

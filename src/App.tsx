@@ -8,7 +8,20 @@ function App() {
   };
   return (
     <div className="app">
-      <BoxModel onValueChange={handleBoxModelChange}>
+      <BoxModel
+        defaultValue='20px'
+        onValueChange={handleBoxModelChange}
+        customSuggestions={[
+          {
+            label: "Set this value to 50px",
+            value: "50px",
+            applyTo: "single"
+          }
+        ]}
+        disabledInputs={{
+          margin: ['left', 'right', 'top', 'bottom'],
+          padding: ['left']
+        }}>
         <div className="content-box" />
       </BoxModel>
     </div>
