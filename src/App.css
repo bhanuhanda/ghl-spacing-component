@@ -22,9 +22,12 @@
 .content-box {
   min-width: 100px;
   flex: 1;
-  height: 35px;
+  height: 50px;
   border-radius: 4px;
   background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .spacing-box {

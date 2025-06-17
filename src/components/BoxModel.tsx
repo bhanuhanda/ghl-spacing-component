@@ -7,16 +7,16 @@ import type { BoxModelState, ContextValue, Positions, TypeOptions, ChangedValues
 const BoxModel = ({ children, onValueChange, customSuggestions = [], defaultValue = "20px", disabledInputs }: BoxModelProps) => {
     const [value, setValue] = useState<BoxModelState>({
         margin: {
-            left: "",
-            right: "5rem",
-            top: "20px",
-            bottom: "2%",
+            left: "auto",
+            right: "auto",
+            top: "auto",
+            bottom: "auto",
         },
         padding: {
-            left: "",
+            left: "auto",
             right: "auto",
-            top: "",
-            bottom: "2vw",
+            top: "auto",
+            bottom: "auto",
         },
     });
     const [changedValues, setChangedValues] = useState<ChangedValues>({
