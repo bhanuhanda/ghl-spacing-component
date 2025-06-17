@@ -1,6 +1,6 @@
 # GHL Spacing Component
 
-![preview](assets/spacing-component.png)
+![preview](src/assets/spacing-component.png)
 
 ### To test this component in Production
 - Go to the deployed url - [here](https://bhanuhanda.com/ghl-spacing-component/)
