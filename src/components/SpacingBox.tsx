@@ -12,13 +12,16 @@ interface SpacingBoxProps {
 }
 
 const SpacingBox = ({ title, children, type, styles = {} }: SpacingBoxProps) => {
-    const { 
-        value, 
-        handleInputChange, 
+    const {
+        value,
+        handleInputChange,
+        handleOpenDialog,
+        handleCloseDialog,
+        openDialogConfig
     } = useContext(StateContext);
 
     return (
-        <div className="spacing-box" style={{...styles}}>
+        <div className="spacing-box" style={{ ...styles }}>
             <h3 className="spacing-box-title">{title}</h3>
             <div className="box-row top-row">
                 <InputWithSuggestionsDropdown
@@ -26,6 +29,9 @@ const SpacingBox = ({ title, children, type, styles = {} }: SpacingBoxProps) => 
                     position="top"
                     value={value[type].top}
                     onChange={(val) => handleInputChange(type, 'top', val)}
+                    isOpen={openDialogConfig?.type === type && openDialogConfig?.position === "top"}
+                    onOpen={() => handleOpenDialog(type, "top")}
+                    onClose={handleCloseDialog}
                 />
             </div>
             <div className="box-row middle-row">
@@ -34,6 +40,9 @@ const SpacingBox = ({ title, children, type, styles = {} }: SpacingBoxProps) => 
                     position="left"
                     value={value[type].left}
                     onChange={(val) => handleInputChange(type, 'left', val)}
+                    isOpen={openDialogConfig?.type === type && openDialogConfig?.position === "left"}
+                    onOpen={() => handleOpenDialog(type, "left")}
+                    onClose={handleCloseDialog}
                 />
                 {children}
                 <InputWithSuggestionsDropdown
@@ -41,6 +50,9 @@ const SpacingBox = ({ title, children, type, styles = {} }: SpacingBoxProps) => 
                     position="right"
                     value={value[type].right}
                     onChange={(val) => handleInputChange(type, 'right', val)}
+                    isOpen={openDialogConfig?.type === type && openDialogConfig?.position === "right"}
+                    onOpen={() => handleOpenDialog(type, "right")}
+                    onClose={handleCloseDialog}
                 />
             </div>
             <div className="box-row bottom-row">
@@ -49,6 +61,9 @@ const SpacingBox = ({ title, children, type, styles = {} }: SpacingBoxProps) => 
                     position="bottom"
                     value={value[type].bottom}
                     onChange={(val) => handleInputChange(type, 'bottom', val)}
+                    isOpen={openDialogConfig?.type === type && openDialogConfig?.position === "bottom"}
+                    onOpen={() => handleOpenDialog(type, "bottom")}
+                    onClose={handleCloseDialog}
                 />
             </div>
         </div>

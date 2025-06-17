@@ -74,3 +74,32 @@
   flex-wrap: nowrap;
   position: relative;
 }
+
+.input-suggestions-wrapper > button {
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  margin-left: 8px;
+}
+
+.suggestion-box {
+  position: absolute;
+  width: 250px;
+  background-color: #fff;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  box-shadow: 1px 1px 5px #ddd;
+  top: 25px;
+  left: -100%;
+  z-index: 100;
+  overflow: hidden;
+}
+
+.suggestion-item {
+  padding: 12px;
+  cursor: pointer;
+}
+
+.suggestion-item:hover {
+  background-color: #dedede;
+}

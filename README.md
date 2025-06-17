@@ -7,10 +7,10 @@
 	- [x] CSS Validation
   - [x] Handle Blur & Keypress of Input
 - [x] Return changed values
-- [ ] Suggestions List Dialog UI
-	- [ ] Positioning
-	- [ ] Toggling Dialog State
-- [ ] Handle Suggestions Selection ('single' & 'all')
+- [x] Suggestions List Dialog UI
+	- [x] Positioning
+	- [x] Toggling Dialog State
+- [x] Handle Suggestions Selection ('single' & 'all')
 - [ ] Allow passing Default value
 - [ ] Allow passing more suggestions
 - [ ] Allow passing Disabled options

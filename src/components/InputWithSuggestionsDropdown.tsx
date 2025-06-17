@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import type { ChangeEvent, KeyboardEvent } from "react";
 import type { TypeOptions, Positions } from "../types";
+import SuggestionList from "./SuggestionList";
+import { FaChevronDown, FaChevronUp } from "react-icons/fa6";
 
 interface InputWithSuggestionsDropdownProps {
     value: string;
@@ -8,15 +10,21 @@ interface InputWithSuggestionsDropdownProps {
     type: TypeOptions;
     position: keyof Positions;
     disabled?: boolean;
+    isOpen: boolean;
+    onOpen: () => void;
+    onClose: () => void;
 }
 
-const InputWithSuggestionsDropdown = ({ 
-    value, 
-    onChange, 
-    type, 
-    position, 
-    disabled = false
-}: InputWithSuggestionsDropdownProps) => {
+const InputWithSuggestionsDropdown = ({
+    value,
+    onChange,
+    type,
+    position,
+    disabled = false,
+    isOpen,
+    onOpen,
+    onClose
+}: InputWithSuggestionsDropdownProps): React.JSX.Element => {
     const [inputValue, setInputValue] = useState(value);
     const inputRef = useRef<HTMLInputElement>(null);
 
@@ -51,7 +59,21 @@ const InputWithSuggestionsDropdown = ({
                 onKeyDown={handleKeyDown}
                 disabled={disabled}
             />
-            {/* Suggestions List renders here */}
+            {/* Suggestions List Toggle */}
+            <button
+                disabled={disabled}
+                onClick={() => isOpen ? onClose() : onOpen()}
+            >
+                {isOpen ? <FaChevronUp /> : <FaChevronDown />}
+
+            </button>
+            {isOpen && !disabled ? (
+                <SuggestionList
+                    type={type}
+                    position={position}
+                    onClose={onClose}
+                />
+            ) : null}
         </div>
     );
 };

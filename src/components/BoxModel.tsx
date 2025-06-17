@@ -2,14 +2,17 @@ import { useEffect, useState } from "react";
 import type { ReactNode } from "react";
 import { StateContext } from "../context";
 import SpacingBox from "./SpacingBox";
-import type { BoxModelState, ContextValue, Positions, TypeOptions, ChangedValues, BoxModelChange } from "../types";
+import { suggestions } from "../helpers/constants";
+import type { BoxModelState, ContextValue, Positions, TypeOptions, ChangedValues, BoxModelChange, Suggestion, HandleSuggestionClickParams } from "../types";
 
 interface BoxModelProps {
     children: ReactNode;
     onValueChange?: (change: BoxModelChange) => void;
+    customSuggestions?: Suggestion[];
+    defaultValue?: string;
 }
 
-const BoxModel = ({ children, onValueChange }: BoxModelProps) => {
+const BoxModel = ({ children, onValueChange, customSuggestions = [], defaultValue = "20px" }: BoxModelProps) => {
     const [value, setValue] = useState<BoxModelState>({
         margin: {
             left: "",
@@ -28,6 +31,15 @@ const BoxModel = ({ children, onValueChange }: BoxModelProps) => {
         margin: {},
         padding: {},
     });
+    const [openDialogConfig, setOpenDialogConfig] = useState<{ type: TypeOptions; position: string } | null>(null);
+
+    const handleOpenDialog = (type: TypeOptions, position: string) => {
+        setOpenDialogConfig({ type, position });
+    };
+
+    const handleCloseDialog = () => {
+        setOpenDialogConfig(null);
+    };
 
     const handleInputChange = (type: TypeOptions, position: keyof Positions, newValue: string) => {
         let sanitizedValue = newValue;
@@ -55,10 +67,66 @@ const BoxModel = ({ children, onValueChange }: BoxModelProps) => {
         setChangedValues(newChanged);
     };
 
+    const handleSuggestionClick = ({ suggestion, type, position }: HandleSuggestionClickParams) => {
+        const values = value[type];
+        const positionValue = values[position];
+
+        if (suggestion.applyTo === 'single') {
+            const newValue = suggestion.valueFromInput ? positionValue : suggestion.value;
+            const newState = {
+                ...value,
+                [type]: {
+                    ...value[type],
+                    [position]: newValue
+                }
+            };
+
+            const newChanged = {
+                ...changedValues,
+                [type]: {
+                    ...changedValues[type],
+                    [position]: newValue
+                }
+            };
+
+            setValue(newState);
+            setChangedValues(newChanged);
+        } else if (suggestion.applyTo === 'all') {
+            const newValue = suggestion.valueFromInput ? positionValue : suggestion.value;
+            const newState = {
+                ...value,
+                [type]: {
+                    top: newValue,
+                    right: newValue,
+                    bottom: newValue,
+                    left: newValue
+                }
+            };
+
+            const newChanged = {
+                ...changedValues,
+                [type]: {
+                    top: newValue,
+                    right: newValue,
+                    bottom: newValue,
+                    left: newValue
+                }
+            };
+
+            setValue(newState);
+            setChangedValues(newChanged);
+        }
+    };
+
     const contextValue: ContextValue = {
         value,
         setValue,
         handleInputChange,
+        suggestions: suggestions(customSuggestions, defaultValue),
+        handleSuggestionClick,
+        handleOpenDialog,
+        handleCloseDialog,
+        openDialogConfig
     };
 
     useEffect(() => {
